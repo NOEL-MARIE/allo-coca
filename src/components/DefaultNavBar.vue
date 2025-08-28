@@ -7,7 +7,7 @@
     <div class="text-xl font-extrabold cursor-pointer select-none">
       <div class="flex gap-2">
         <img src="../assets/home.gif" alt="Logo" class="h-8 mt-1 md:h-10" />
-        <img src="../assets/Logo Allo Cola.svg" alt="Logo" class="h-8 md:h-10" />
+        <img src="/Logo Allo Cola.svg" alt="Logo" class="h-8 md:h-10" />
       </div>
     </div>
 
@@ -23,7 +23,7 @@
       @click="isMenuOpen = !isMenuOpen"
       aria-label="Menu"
       class="md:hidden p-2 rounded border border-white hover:bg-white hover:text-[#7C6E65] transition-colors"
-    >
+    >j
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

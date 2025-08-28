@@ -12,7 +12,7 @@
         <!-- Colonne 1 : Logo + Description + Réseaux -->
         <div class="flex-1 max-w-xs space-y-4">
           <!-- Logo -->
-          <img src="../assets/Logo Allo Cola.svg" alt="AlloCoca Logo" class="w-28" />
+          <img src="/Logo Allo Cola.svg" alt="AlloCoca Logo" class="w-28" />
 
           <!-- Description -->
           <p class="text-sm text-gray-300 font-inter">

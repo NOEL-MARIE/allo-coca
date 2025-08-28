@@ -202,7 +202,7 @@
                 class="flex items-center justify-center flex-1 px-5 py-2 text-center bg-white border border-gray-900 rounded-full"
                 :to="{
                   path: '/configurator',
-                  query: { tab: 'casier', casierId: commande.id },
+                  // query: { tab: 'casier', casierId: commande.id },
                 }"
               >
                 Modifier
@@ -351,13 +351,13 @@ const commandes = computed(() =>
 
 // logique de retour sur la tabs "casier a composer"
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getProductId(commande: any): string {
-  // supposons que casierItems contiennent les produits avec un id
-  if (commande.casierItems && commande.casierItems.length > 0) {
-    return commande.casierItems[0].id || ''
-  }
-  return ''
-}
+// function getProductId(commande: any): string {
+//   // supposons que casierItems contiennent les produits avec un id
+//   if (commande.casierItems && commande.casierItems.length > 0) {
+//     return commande.casierItems[0].id || ''
+//   }
+//   return ''
+// }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useCasierStore } from '@/stores/casierStore'
@@ -418,7 +418,7 @@ const filteredCommandes = computed(() => {
     (cmd) =>
       cmd.date.toLowerCase().includes(q) ||
       cmd.casier.toLowerCase().includes(q) ||
-      (cmd.packs && cmd.packs.toLowerCase().includes(q)) ||
+      // (cmd.packs && cmd.packs.toLowerCase().includes(q)) ||
       cmd.total.toString().includes(q),
   )
 })

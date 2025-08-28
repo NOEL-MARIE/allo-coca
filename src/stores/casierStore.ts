@@ -8,15 +8,15 @@ export type FullCasierProduct = {
   qty: number
 }
 
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 
-function ajouterCasier(products: CasierProduct[], qty: number) {
-  this.casiers.push({
-    id: uuidv4(),
-    products: products.map(p => ({ ...p })),
-    qty
-  })
-}
+// function ajouterCasier(products: CasierProduct[], qty: number) {
+//   this.casiers.push({
+//     id: uuidv4(),
+//     products: products.map(p => ({ ...p })),
+//     qty
+//   })
+// }
 
 
 export type CasierProduct = {

@@ -39,7 +39,7 @@
 defineProps({
   active: { type: String, required: true },
 })
-const tabs = ['Casiers à composer', 'Casiers complets', 'Eau Minérale']
+const tabs = [ 'Casiers complets','Casiers à composer', 'Eau Minérale']
 </script>
 
 <style scoped>
