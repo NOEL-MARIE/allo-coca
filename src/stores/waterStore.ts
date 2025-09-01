@@ -1,10 +1,9 @@
-// src/stores/waterStore.ts
 import { defineStore } from 'pinia'
-import { watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 
-export const useWaterStore = defineStore('water', {
-  state: () => ({
-    waters: JSON.parse(localStorage.getItem('waterProducts') || 'null') || [
+export const useWaterStore = defineStore('water', () => {
+  const waters = ref(
+    JSON.parse(localStorage.getItem('waterProducts') || 'null') || [
       {
         id: 'celeste-15',
         label: 'Céleste Naturelle 1.5L',
@@ -50,43 +49,51 @@ export const useWaterStore = defineStore('water', {
         qty: 0,
         type: 'water',
       },
-    ],
-  }),
+    ]
+  )
 
-  getters: {
-    selectedWaters: (state) => state.waters.filter((w: { qty: number; }) => w.qty > 0),
+  const selectedWaters = computed(() => waters.value.filter(w => w.qty > 0))
 
-    subtotal: (state) => state.waters.reduce((s: number, w: { qty: number; price: number }) => s + w.qty * w.price, 0),
+  const subtotal = computed(() => waters.value.reduce((sum, w) => sum + w.qty * w.price, 0))
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    countWaters: (state) => state.waters.reduce((s: any, w: { qty: any; }) => s + w.qty, 0),
-  },
+  const countWaters = computed(() => waters.value.reduce((sum, w) => sum + w.qty, 0))
 
-  actions: {
-    increment(water: { qty: number }) {
-      water.qty++
-      this.save()
-    },
-    decrement(water: { qty: number }) {
-      if (water.qty > 0) {
-        water.qty--
-        this.save()
-      }
-    },
-    save() {
-      localStorage.setItem('waterProducts', JSON.stringify(this.waters))
-    },
-    reset() {
-      this.waters.forEach((w: { qty: number; }) => (w.qty = 0))
-      this.save()
-    },
-  },
-})
+  function increment(water: { qty: number }) {
+    water.qty++
+    save()
+  }
 
-export function initWaterStoreWatcher(store: ReturnType<typeof useWaterStore>) {
+  function decrement(water: { qty: number }) {
+    if (water.qty > 0) {
+      water.qty--
+      save()
+    }
+  }
+
+  function save() {
+    localStorage.setItem('waterProducts', JSON.stringify(waters.value))
+  }
+
+  function reset() {
+    waters.value.forEach(w => (w.qty = 0))
+    save()
+  }
+
+  // Synchroniser waters avec stockage local automatiquement
   watch(
-    () => store.waters,
-    () => store.save(),
+    waters,
+    () => save(),
     { deep: true }
   )
-}
+
+  return {
+    waters,
+    selectedWaters,
+    subtotal,
+    countWaters,
+    increment,
+    decrement,
+    save,
+    reset,
+  }
+})

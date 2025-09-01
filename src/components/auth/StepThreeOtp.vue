@@ -11,6 +11,7 @@
         class="relative flex "
       >
         <!-- SVG placeholder -->
+         
         <svg
           v-if="!otp[index]"
           class="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none left-1/2 top-1/2"
@@ -18,6 +19,7 @@
           height="28"
           viewBox="0 0 24 28"
           fill="none"
+          color="#D1D1D1"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path

@@ -48,8 +48,8 @@
 @font-face {
   font-family: 'TCCCUnityHeadline';
   src:
-    url('../assets/Fonts/TCCC-UnityText Regular.ttf') format('woff2'),
-    url('../assets/Fonts/TCCC-UnityText Regular.ttf') format('woff');
+    url('/Fonts/TCCC-UnityText Regular.ttf') format('woff2'),
+    url('/Fonts/TCCC-UnityText Regular.ttf') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -197,7 +197,7 @@
 
 @font-face {
   font-family: 'TCCCUnityHeadline';
-  src: url('../public/Fonts/TCCC-UnityText Regular.ttf') format('truetype');
+  src: url('/Fonts/TCCC-UnityText Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

@@ -5,7 +5,7 @@
     <div class="flex items-start w-screen h-screen gap-10 pt-8 2xl:justify-evenly">
       <!-- Visuel du casier -->
       <div
-        class="w-[690px] mr-[800px] md:mr-[800px] 2xl:w-[1090px] 2x:h-[990px] sticky top-0 pt-24 flex flex-col justify-center items-center"
+        class="w-[1299px] mr-[400px] md:mr-[400px] 2xl:w-[1090px]  top-0 pt-4 flex flex-col justify-center items-center"
       >
         <div
           class="grid grid-cols-6 grid-rows-4 2xl:w-[1500px] 2xl:h-[1000px] gap-1.5 2xl:gap-5 bg-[#e62c2d] p-6 2xl:p-10 rounded-lg shadow-md relative"
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div
-          class="text-white font-cursive font-bold text-[34px] mt-4 drop-shadow-[1px_2px_6px_rgba(177,21,21,0.75)]"
+          class="font-inter font-bold text-[34px] mt-4 text-black "
         >
           Mon Casier Plein
         </div>
@@ -38,11 +38,12 @@
             class="overflow-auto justify-between grow h-[560px] gap-6 grid grid-cols-2 hide-scrollbar"
           >
             <div
-              v-for="product in  store.products"
+              v-for="product in store.products"
               :key="product.id"
               class="z-0 flex flex-col items-center p-4 m-0 bg-white border border-gray-100 rounded-lg shadow-sm select-none w-[200px] h-[236px]"
             >
               <!-- Titre -->
+
               <h3 class="w-full mb-3 text-sm font-bold text-black">{{ product.label }}</h3>
 
               <div class="relative flex justify-center w-full">
@@ -68,7 +69,7 @@
                 >
                   <!-- Bouton - -->
                   <button
-                    @click=" store.decrement(product)"
+                    @click="store.decrement(product)"
                     :disabled="product.qty <= 0"
                     class="flex items-center justify-center w-8 h-8 text-xl font-bold text-gray-400 bg-white rounded-full disabled:cursor-not-allowed disabled:text-gray-300"
                     aria-label="Décrémenter quantité"
@@ -82,9 +83,10 @@
 
                   <!-- Bouton + désactivé si casier plein -->
                   <button
-                    @click=" store.increment(product)"
+                    @click="store.increment(product)"
                     :disabled="
-                       store.countBottles >= 24 || product.qty + 1 + ( store.countBottles - product.qty) > 24
+                      store.countBottles >= 24 ||
+                      product.qty + 1 + (store.countBottles - product.qty) > 24
                     "
                     class="flex items-center justify-center w-8 h-8 text-xl font-bold text-white bg-red-600 rounded-full hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Incrémenter quantité"
@@ -94,34 +96,37 @@
                 </div>
               </div>
             </div>
+            <div></div>
           </div>
 
           <!-- Résumé -->
           <div class="flex flex-col gap-1 pt-4 mb-2 text-sm">
             <div class="flex justify-between">
               <span class="text-gray-600">Nombre de bouteilles</span>
-              <span class="font-semibold text-black">{{  store.countBottles }} / 24</span>
+              <span class="font-semibold text-black">{{ store.countBottles }} / 24</span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Nombre de casiers</span>
-              <span class="font-semibold text-black">{{  store.countCasier }} / 10</span>
+              <span class="font-semibold text-black">{{ store.countCasier }} / 10</span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Sous-total</span>
-              <span class="font-semibold text-black">{{  store.subtotal.toLocaleString() }} FCFA</span>
+              <span class="font-semibold text-black"
+                >{{ store.subtotal.toLocaleString() }} FCFA</span
+              >
             </div>
           </div>
 
           <!-- Actions -->
           <div class="flex justify-between">
             <button
-             @click="ajouterAuPanier"
-              :disabled=" store.countBottles === 0 ||  store.subtotal === 5000"
-              class="flex justify-between gap-2 px-4 py-2 transition-colors rounded-full h-fit disabled:opacity-50"
+              @click="ajouterAuPanier"
+              :disabled="store.countBottles === 0 || store.subtotal === 5000"
+              class="flex items-center justify-between gap-2 px-4 py-2 transition-colors rounded-full h-fit disabled:opacity-50"
               :class="{
-                'text-gray-500 bg-gray-100':  store.countBottles === 0 ||  store.subtotal < 5000,
+                'text-gray-500 bg-gray-100': store.countBottles === 0 || store.subtotal < 5000,
                 'text-black bg-white hover:text-[#b0b0b0] hover:cursor-pointer hover:bg-gray-700':
-                  !( store.countBottles === 0 ||  store.subtotal < 5000),
+                  !(store.countBottles === 0 || store.subtotal < 5000),
               }"
             >
               Ajouter au panier
@@ -148,7 +153,7 @@
             </button>
 
             <button
-              @click=" store.reset"
+              @click="store.reset"
               class="flex justify-center px-4 py-2 mb-4 text-white bg-red-500 rounded-full hover:bg-red-600"
             >
               Réinitialiser le casier
@@ -192,53 +197,52 @@ import { useRoute } from 'vue-router'
 import { computed, onMounted } from 'vue'
 import { useCasierStore } from '../../stores/casierStore'
 import { usePanierStore } from '../../stores/PanierStores'
-
+import router from '@/router'
 
 const store = useCasierStore()
 const route = useRoute()
 const panierStore = usePanierStore()
 
-
-
+// remplissage automatique du casier
 
 onMounted(() => {
   const casierId = route.query.casierId
   if (casierId && typeof casierId === 'string') {
-    const casierToEdit = panierStore.casiers.find(c => c.id === casierId)
+    const casierToEdit = panierStore.casiers.find((c) => c.id === casierId)
     if (casierToEdit) {
       // Réinitialiser les quantités dans casierStore
-      store.products.forEach(p => p.qty = 0)
+      store.products.forEach((p) => (p.qty = 0))
       // Remplir avec les produits du casier à modifier
-      casierToEdit.products.forEach(p => {
-        const productInStore = store.products.find(sp => sp.id === p.id)
+      casierToEdit.products.forEach((p) => {
+        const productInStore = store.products.find((sp) => sp.id === p.id)
         if (productInStore) productInStore.qty = p.qty
       })
     }
   }
 })
 
-
 function ajouterAuPanier() {
-  const produitsSelectionnes = store.products.filter(p => p.qty > 0)
+  const produitsSelectionnes = store.products.filter((p) => p.qty > 0)
   if (produitsSelectionnes.length === 0) {
-    alert('Sélectionnez au moins un produit avant d\'ajouter au panier.')
+    alert("Sélectionnez au moins un produit avant d'ajouter au panier.")
     return
   }
 
   const casierId = route.query.casierId
   if (casierId && typeof casierId === 'string') {
-    // Mise à jour du casier existant
-    const index = panierStore.casiers.findIndex(c => c.id === casierId)
+    const index = panierStore.casiers.findIndex((c) => c.id === casierId)
     if (index !== -1) {
-      panierStore.casiers[index].products = produitsSelectionnes.map(p => ({ ...p }))
-      panierStore.casiers[index].qty = 1 // ou autre quantité si gérée
+      panierStore.casiers[index].products = produitsSelectionnes.map((p) => ({ ...p }))
+      panierStore.casiers[index].qty = 1
     }
   } else {
-    // Ajout d'un nouveau casier
-    panierStore.ajouterCasier(produitsSelectionnes, 1)
+    panierStore.ajouterCasier(produitsSelectionnes, 1, 'Nouveau Casier')
   }
 
   store.reset()
+
+  // 👉 Redirection vers Mes commandes avec query pour ouvrir le drawer
+  router.push({ path: '/my-orders', query: { openDrawer: 'true' } })
 }
 
 // function ajouterAuPanier() {
@@ -251,7 +255,6 @@ function ajouterAuPanier() {
 //   store.reset() // réinitialiser la sélection après ajout
 // }
 
-
 interface Product {
   id: string
   label: string
@@ -263,13 +266,11 @@ interface Product {
   type?: 'casier' | 'water' | string
 }
 
-
-
 // Casier visuel rempli en fonction des quantités
 const crateBottles = computed<(Product | null)[]>(() => {
   // eslint-disable-next-line prefer-const
   let flat: (Product | null)[] = []
-   store.products.forEach((p) => {
+  store.products.forEach((p) => {
     for (let i = 0; i < p.qty; ++i) flat.push(p)
   })
   while (flat.length < 24) flat.push(null)

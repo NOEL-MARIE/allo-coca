@@ -225,110 +225,197 @@
       </div>
 
       <!-- Drawer du panier -->
-      <div v-if="drawerOpen" class="fixed inset-0 z-30 flex justify-end bg-black/25">
-        <div
-          class="bg-white h-full w-full sm:w-[450px] shadow-lg pt-10 px-6 flex flex-col overflow-y-auto"
+      <div v-for="(commande, idx) in filteredCommandes" :key="idx">
+        <Drawer
+          v-model="isDrawerOpen"
+          class="fixed font-inter inset-0 w-[100%] z-30 flex justify-end bg-black/25"
         >
-          <!-- header -->
-          <div class="flex items-center mb-6">
-            <h2 class="mb-6 text-xl font-bold">Mon panier</h2>
-            <button class="mb-6 ml-auto text-2xl" @click="drawerOpen = false">&times;</button>
-          </div>
-
-          <!-- Casier -->
           <div
-            class="p-4 mb-4 border rounded-lg h-[150px]"
-            v-if="selectedCommande.casierItems?.length"
+            class="bg-white h-full w-full sm:w-[450px] md:w-[600px] shadow-lg pt-10 px-6 flex flex-col overflow-y-auto hide-scrollbar"
           >
-            <div class="flex items-start justify-between mb-2">
-              <div>
-                <div class="font-bold">Casier</div>
-                <div class="text-gray-700">
-                  <div v-for="(item, idx) in selectedCommande.casierItems" :key="'casier-' + idx">
-                    {{ item.label }}: {{ item.qty }} bouteilles
-                  </div>
-                </div>
-              </div>
-              <div class="font-bold">{{ selectedCommande.casierTotal }} FCFA</div>
+            <!-- header -->
+            <div class="flex items-center mb-6">
+              <h2 class="mb-6 text-xl font-bold">Mon panier</h2>
+              <button class="mb-6 ml-auto text-2xl" @click="drawerOpen = false">&times;</button>
             </div>
-          </div>
 
-          <!-- Packs -->
-          <div class="p-4 mb-4 border rounded-lg" v-if="selectedCommande.waterItems?.length">
-            <div class="flex items-start justify-between mb-2">
-              <div>
-                <div class="font-bold">Bouteilles d'eau</div>
-                <div class="text-gray-700">
-                  <div v-for="(item, idx) in selectedCommande.waterItems" :key="'water-' + idx">
-                    {{ item.label }}: {{ item.qty }} packs
-                  </div>
-                </div>
-              </div>
-              <div class="font-bold">{{ selectedCommande.waterTotal }} FCFA</div>
-            </div>
-          </div>
-
-          <!-- Résumé -->
-          <div class="mb-4">
-            <h3 class="mb-2 font-semibold">Résumé de ma commande</h3>
-            <div class="flex justify-between mb-1">
-              <span>Sous-total</span>
-              <span>{{ selectedCommande.subTotal }} FCFA</span>
-            </div>
-            <div class="flex justify-between mb-1">
-              <span>Consignation</span>
-              <span>{{ selectedCommande.consignation || 2000 }} FCFA</span>
-            </div>
-            <div class="flex items-center gap-2 mb-1">
-              <input
-                type="checkbox"
-                v-model="selectedCommande.hasOwnCasier"
-                id="consigne"
-                class="w-4 h-4"
-              />
-              <label for="consigne" class="text-sm text-gray-700"
-                >Je possède déjà mes casiers (retirer la consigne)</label
-              >
-            </div>
-            <div class="flex justify-between mb-1">
-              <span>Livraison</span>
-              <span>Gratuite</span>
-            </div>
-            <div class="flex justify-between pt-2 text-lg font-bold">
-              <span>Total</span>
-              <span>{{ selectedCommande.total }} FCFA</span>
-            </div>
-          </div>
-
-          <!-- Bouton Finaliser -->
-          <RouterLink to="DeliveryInformation">
-            <button
-              :class="{
-                'bg-red-600 text-white cursor-pointer': selectedCommande.total >= 5000,
-                'bg-gray-200 text-gray-400 cursor-not-allowed': selectedCommande.total < 5000,
-              }"
-              class="w-full py-3 mt-4 text-lg font-bold rounded"
-              :disabled="selectedCommande.total < 5000"
+            <!-- Casier -->
+            <div
+              v-for="(commande, idx) in filteredCommandes"
+              :key="idx"
+              class="flex flex-col justify-between p-6 rounded-lg shadow bg-white w-[562px] h-[266px]"
             >
-              Finaliser ma commande
-            </button>
-          </RouterLink>
-          <p v-if="selectedCommande.total < 5000" class="mt-2 text-sm text-red-600">
-            *Votre commande doit être supérieure à 5 000 FCFA pour finaliser
-          </p>
-        </div>
+              <div>
+                <p class="flex items-center justify-between text-lg font-bold">
+                  <span class="mr-2 text-black material-icons">Casier</span>
+                  <span> {{ commande.total }} FCFA </span>
+                </p>
+                <div class="mt-2">
+                  <div class="ml-4">
+                    <div
+                      v-for="item in commande.casierItems"
+                      :key="item.id"
+                      class="mb-1 text-gray-700"
+                    >
+                      {{ item.label }}: {{ item.qty }} bouteilles
+                    </div>
+                  </div>
+                </div>
+                <div v-if="commande.packs" class="mt-2">
+                  <span class="font-bold text-blue-600">Packs:</span>
+                  <span>{{ commande.packs }}</span>
+                </div>
+                <div v-if="commande.packs" class="mt-2">
+                  <span class="font-bold text-blue-600">Packs:</span>
+                  <span>{{ commande.packs }}</span>
+                </div>
+              </div>
+
+              <div class="flex gap-3 mt-6">
+                <button
+                  @click="modifierCasier(commande.id)"
+                  class="px-5 py-2 font-bold text-black bg-white border-2 border-black rounded-full"
+                >
+                  Modifier le casier
+                </button>
+
+                <button
+                  @click="supprimerCasier(commande.id)"
+                  class="flex items-center justify-center px-3 py-2 font-bold text-center bg-white border-2 border-black rounded-full hover:cursor-pointer"
+                >
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 18 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12.3333 5.00033V4.33366C12.3333 3.40024 12.3333 2.93353 12.1517 2.57701C11.9919 2.2634 11.7369 2.00844 11.4233 1.84865C11.0668 1.66699 10.6001 1.66699 9.66667 1.66699H8.33333C7.39991 1.66699 6.9332 1.66699 6.57668 1.84865C6.26308 2.00844 6.00811 2.2634 5.84832 2.57701C5.66667 2.93353 5.66667 3.40024 5.66667 4.33366V5.00033M7.33333 9.58366V13.7503M10.6667 9.58366V13.7503M1.5 5.00033H16.5M14.8333 5.00033V14.3337C14.8333 15.7338 14.8333 16.4339 14.5608 16.9686C14.3212 17.439 13.9387 17.8215 13.4683 18.0612C12.9335 18.3337 12.2335 18.3337 10.8333 18.3337H7.16667C5.76654 18.3337 5.06647 18.3337 4.53169 18.0612C4.06129 17.8215 3.67883 17.439 3.43915 16.9686C3.16667 16.4339 3.16667 15.7338 3.16667 14.3337V5.00033"
+                      stroke="black"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="p-4 mb-4 border rounded-lg h-[150px]"
+              v-if="selectedCommande.casierItems?.length"
+            >
+              <div class="flex items-start justify-between mb-2">
+                <div>
+                  <div class="font-bold">Casier</div>
+                  <div class="text-gray-700">
+                    <div v-for="(item, idx) in selectedCommande.casierItems" :key="'casier-' + idx">
+                      {{ item.label }}: {{ item.qty }} bouteilles
+                    </div>
+                  </div>
+                </div>
+                <div class="font-bold">{{ selectedCommande.casierTotal }} FCFA</div>
+              </div>
+            </div>
+
+            <!-- Packs -->
+            <div class="p-4 mb-4 border rounded-lg" v-if="selectedCommande.waterItems?.length">
+              <div class="flex items-start justify-between mb-2">
+                <div>
+                  <div class="font-bold">Bouteilles d'eau</div>
+                  <div class="text-gray-700">
+                    <div v-for="(item, idx) in selectedCommande.waterItems" :key="'water-' + idx">
+                      {{ item.label }}: {{ item.qty }} packs
+                    </div>
+                  </div>
+                </div>
+                <div class="font-bold">{{ selectedCommande.waterTotal }} FCFA</div>
+              </div>
+            </div>
+
+            <!-- Résumé -->
+            <div class="mt-auto mb-4">
+              <h3 class="mb-2 font-bold">Résumé de ma commande</h3>
+              <div class="flex justify-between mb-1">
+                <span>Sous-total</span>
+                <span>{{ commande.total }} FCFA</span>
+              </div>
+              <div class="flex justify-between mb-1">
+                <span>Consignation</span>
+                <span>{{ selectedCommande.consignation || 2000 }} FCFA</span>
+              </div>
+              <div class="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  v-model="selectedCommande.hasOwnCasier"
+                  id="consigne"
+                  class="w-4 h-4"
+                />
+                <label for="consigne" class="text-sm text-gray-700"
+                  >Je possède déjà mes casiers (retirer la consigne)</label
+                >
+              </div>
+              <div class="flex justify-between mb-1">
+                <span>Livraison</span>
+                <span>Gratuite</span>
+              </div>
+              <div class="flex justify-between pt-2 text-lg font-bold">
+                <span>Total</span>
+                <span>{{ selectedCommande.total }} FCFA</span>
+              </div>
+            </div>
+
+            <!-- Bouton Finaliser -->
+            <RouterLink to="DeliveryInformation">
+              <button
+                :class="{
+                  'bg-red-600 text-white cursor-pointer': selectedCommande.total >= 5000,
+                  'bg-gray-200 text-gray-400 cursor-not-allowed': selectedCommande.total < 5000,
+                }"
+                class="w-full py-3 mt-4 text-lg font-bold rounded"
+                :disabled="selectedCommande.total < 5000"
+              >
+                Finaliser ma commande
+              </button>
+            </RouterLink>
+            <p v-if="selectedCommande.total < 5000" class="mt-2 text-sm text-red-600">
+              *Votre commande doit être supérieure à 5 000 FCFA pour finaliser
+            </p>
+          </div>
+        </Drawer>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import router from '@/router'
+import { ref, computed, onMounted } from 'vue'
 import NavBar from '../configurator/ConfigNavbar.vue'
 import { usePanierStore } from '@/stores/PanierStores' // adapter le chemin selon votre projet
 
-const panierStore = usePanierStore()
+// Supprimer un casier du panier par id
+function supprimerCasier(id: string) {
+  panierStore.supprimerCasier(id)
+}
 
+// Modifier un casier => redirige vers configurateur avec query param tab=casier & casierId=id
+function modifierCasier(casierId: string) {
+  router.push({
+    path: '/configurator',
+    query: { tab: 'casier', casierId },
+  })
+}
+
+const panierStore = usePanierStore()
+const route = useRoute()
+const isDrawerOpen = ref(false)
+onMounted(() => {
+  if (route.query.openDrawer === 'true') {
+    isDrawerOpen.value = true
+  }
+})
 const commandes = computed(() =>
   panierStore.casiers.map((casier) => {
     // Création d'une chaîne pour liste des produits dans le casier en "label x qty"
@@ -338,8 +425,10 @@ const commandes = computed(() =>
       .join(', ')
 
     return {
+      id: casier.id,
       date: new Date().toLocaleDateString('fr-FR'), // ou date réelle si disponible
       casier: casierDesc,
+      label: casier.label,
       packs: null, // si vous avez packs eau, gérer ici
       total: casier.products.reduce((sum, p) => sum + p.qty * p.price, 0) * casier.qty,
       casierItems: casier.products,
@@ -350,7 +439,7 @@ const commandes = computed(() =>
 )
 
 // logique de retour sur la tabs "casier a composer"
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 function getProductId(commande: any): string {
   // supposons que casierItems contiennent les produits avec un id
   if (commande.casierItems && commande.casierItems.length > 0) {
@@ -363,7 +452,7 @@ function getProductId(commande: any): string {
 import { useCasierStore } from '@/stores/casierStore'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useWaterStore } from '@/stores/waterStore'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 // Données des commandes (exemple)
 // const commandes = ref([
@@ -414,13 +503,15 @@ const searchQuery = ref('')
 const filteredCommandes = computed(() => {
   if (!searchQuery.value) return commandes.value
   const q = searchQuery.value.toLowerCase()
-  return commandes.value.filter(
-    (cmd) =>
+  return commandes.value.filter((cmd) => {
+    const packsStr = typeof cmd.packs === 'string' ? cmd.packs : ''
+    return (
       cmd.date.toLowerCase().includes(q) ||
       cmd.casier.toLowerCase().includes(q) ||
-      (cmd.packs && cmd.packs.toLowerCase().includes(q)) ||
-      cmd.total.toString().includes(q),
-  )
+      packsStr.toLowerCase().includes(q) ||
+      cmd.total.toString().includes(q)
+    )
+  })
 })
 
 // Date picker

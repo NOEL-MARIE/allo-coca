@@ -23,7 +23,7 @@ const router = useRouter()
 
 // onglet actif (par défaut "Casiers à composer")
 const activeTab = ref<string>(
-  (route.query.tab as string) || 'Casiers à composer'
+  (route.query.tab as string) || 'Casiers complets'
 )
 
 // garde la query synchro si on change d’onglet depuis la nav
