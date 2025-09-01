@@ -63,10 +63,10 @@
 
 <script setup lang="ts">
 // import { Truck, ShieldCheck, RefreshCw, MessageCircle } from 'lucide-vue-next'
-import Truck from '../../assets/bus.svg'
-import ShieldCheck from '../../assets/shield.svg'
-import RefreshCw from '../../assets/rotate-ccw.svg'
-import MessageCircle from '../../assets/message-circle.svg'
+import Truck from '/assets/bus.svg'
+import ShieldCheck from '/assets/shield.svg'
+import RefreshCw from '/assets/rotate-ccw.svg'
+import MessageCircle from '/assets/message-circle.svg'
 interface Feature {
   title: string
   description: string

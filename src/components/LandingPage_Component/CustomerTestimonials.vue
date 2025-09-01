@@ -68,19 +68,19 @@ const testimonials: Testimonial[] = [
     name: 'Fatou B.',
     city: 'Yopougon',
     message: `J’ai reçu mon casier en moins de 2h !\nTrès pratique pour mes soirées entre amis.`,
-    image: new URL('@/assets/TESTIMONIAL_IMAGE_1 (1).png', import.meta.url).href,
+    image: new URL('/assets/TESTIMONIAL_IMAGE_1 (1).png', import.meta.url).href,
   },
   {
     name: 'Kouassi M.',
     city: 'Cocody',
     message: `C’est trop cool de pouvoir mélanger Coca, Fanta\net Sprite dans le même casier !`,
-    image: new URL('@/assets/TESTIMONIAL_IMAGE_1 (2).png', import.meta.url).href,
+    image: new URL('/assets/TESTIMONIAL_IMAGE_1 (2).png', import.meta.url).href,
   },
   {
     name: 'Aya K.',
     city: 'Marcory',
     message: `Service client au top sur WhatsApp. Ils ont\nremplacé une bouteille abîmée le jour même !`,
-    image: new URL('@/assets/TESTIMONIAL_IMAGE_1 (3).png', import.meta.url).href,
+    image: new URL('/assets/TESTIMONIAL_IMAGE_1 (3).png', import.meta.url).href,
   },
 ];
 </script>

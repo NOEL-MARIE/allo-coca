@@ -8,7 +8,7 @@ export const useWaterStore = defineStore('water', {
       {
         id: 'celeste-15',
         label: 'Céleste Naturelle 1.5L',
-        img: new URL('../assets/EauMinerales/cel 1.5L.png', import.meta.url).href,
+        img: new URL('/assets/EauMinerales/cel 1.5L.png', import.meta.url).href,
         volume: '1.5L',
         price: 275,
         qty: 0,
@@ -17,7 +17,7 @@ export const useWaterStore = defineStore('water', {
       {
         id: 'celeste-1',
         label: 'Céleste Naturelle 1L',
-        img: new URL('../assets/EauMinerales/cel 1L.png', import.meta.url).href,
+        img: new URL('/assets/EauMinerales/cel 1L.png', import.meta.url).href,
         volume: '1L',
         price: 175,
         qty: 0,
@@ -26,7 +26,7 @@ export const useWaterStore = defineStore('water', {
       {
         id: 'celeste-05',
         label: 'Céleste Naturelle 0.5L',
-        img: new URL('../assets/EauMinerales/cel 0.5L.png', import.meta.url).href,
+        img: new URL('/assets/EauMinerales/cel 0.5L.png', import.meta.url).href,
         volume: '0.5L',
         price: 110,
         qty: 0,
@@ -35,7 +35,7 @@ export const useWaterStore = defineStore('water', {
       {
         id: 'celeste-17',
         label: 'Céleste 17L',
-        img: new URL('../assets/EauMinerales/cel 17L.png', import.meta.url).href,
+        img: new URL('/assets/EauMinerales/cel 17L.png', import.meta.url).href,
         volume: '17L',
         price: 1750,
         qty: 0,
@@ -44,7 +44,7 @@ export const useWaterStore = defineStore('water', {
       {
         id: 'cristaline-15',
         label: 'Cristaline 1.5L',
-        img: new URL('../assets/EauMinerales/cel 1.5L.png', import.meta.url).href,
+        img: new URL('/assets/EauMinerales/cel 1.5L.png', import.meta.url).href,
         volume: '1.5L',
         price: 250,
         qty: 0,

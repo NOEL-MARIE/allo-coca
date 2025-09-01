@@ -217,7 +217,7 @@
         v-if="filteredCommandes.length === 0"
         class="flex flex-col items-center justify-center w-full mt-20 text-center text-gray-600"
       >
-        <img src="../../assets/nothing_crus.gif" alt="" class="w-20 h-20" />
+        <img src="/assets/nothing_crus.gif" alt="" class="w-20 h-20" />
         <p class="text-xl font-semibold">Aucune commande trouvée</p>
         <p class="text-sm">
           Essayez avec une autre recherche (date, total, casier, packs, année...)
@@ -350,7 +350,7 @@ const commandes = computed(() =>
 )
 
 // logique de retour sur la tabs "casier a composer"
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 // function getProductId(commande: any): string {
 //   // supposons que casierItems contiennent les produits avec un id
 //   if (commande.casierItems && commande.casierItems.length > 0) {

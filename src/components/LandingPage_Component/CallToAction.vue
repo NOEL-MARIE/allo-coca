@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Cta_Image from '../../assets/Cta_Image.png';
+import Cta_Image from '/assets/Cta_Image.png';
 
 function startOrderWithoutAccount() {
   // Logique démarrage commande sans compte
@@ -35,7 +35,7 @@ function findOrder() {
           >
             Commence sans Compte
             <svg
-              class="w-6 h- ml-2 stroke-current"
+              class="w-6 ml-2 stroke-current h-"
               fill="none"
               stroke-width="2"
               stroke-linecap="round"

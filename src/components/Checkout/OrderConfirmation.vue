@@ -6,7 +6,7 @@
     <main class="flex flex-col items-center w-full mt-10">
       <div class="w-[360px] bg-white rounded-lg shadow p-8 flex flex-col items-center text-center">
         <img
-          src="@/assets/img_success-coca.png"
+          src="/assets/img_success-coca.png"
           alt="Coca Cola"
           class="h-24 mx-auto mb-2"
         />

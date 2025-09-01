@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import cocaImage from '../../assets/BoissonGazeuses/coca.png'
-import spriteImage from '../../assets/BoissonGazeuses/sprite.png'
-import fantaImage from '../../assets/BoissonGazeuses/fanta.png'
-import schweppesImage from '../../assets/BoissonGazeuses/schweppes agrume.png'
-import celesteImage from '../../assets/EauMinerales/cel 0.5L.png'
-import celestegrandImage from '../../assets/EauMinerales/cel 1L.png'
-import celeste5lImage from '../../assets/EauMinerales/cel 17L.png'
-import christalineImage from '../../assets/EauMinerales/cris 1.5L.png'
+import cocaImage from '/assets/BoissonGazeuses/coca.png'
+import spriteImage from '/assets/BoissonGazeuses/sprite.png'
+import fantaImage from '/assets/BoissonGazeuses/fanta.png'
+import schweppesImage from '/assets/BoissonGazeuses/schweppes agrume.png'
+import celesteImage from '/assets/EauMinerales/cel 0.5L.png'
+import celestegrandImage from '/assets/EauMinerales/cel 1L.png'
+import celeste5lImage from '/assets/EauMinerales/cel 17L.png'
+import christalineImage from '/assets/EauMinerales/cris 1.5L.png'
 import { ref } from 'vue'
 
 type Product = {

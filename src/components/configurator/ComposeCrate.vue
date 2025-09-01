@@ -76,7 +76,7 @@
                     −
                   </button>
 
-                  <div class="px-3 text-lg font-semibold text-center text-gray-900 select-text">
+                  <div  class="px-3 text-lg font-semibold text-center text-gray-900 select-text">
                     {{ product.qty }}
                   </div>
 
@@ -88,6 +88,7 @@
                     "
                     class="flex items-center justify-center w-8 h-8 text-xl font-bold text-white bg-red-600 rounded-full hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Incrémenter quantité"
+                    
                   >
                     +
                   </button>
@@ -278,9 +279,7 @@ const crateBottles = computed<(Product | null)[]>(() => {
 </script>
 
 <style scoped>
-.font-cursive {
-  font-family: 'Oswald', cursive, sans-serif;
-}
+
 /* Masquer scrollbar mais garder le scroll */
 .overflow-auto::-webkit-scrollbar {
   display: none;

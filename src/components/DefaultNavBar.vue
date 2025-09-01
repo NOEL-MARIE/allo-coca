@@ -6,7 +6,7 @@
     <!-- Logo -->
     <div class="text-xl font-extrabold cursor-pointer select-none">
       <div class="flex gap-2">
-        <img src="../assets/home.gif" alt="Logo" class="h-8 mt-1 md:h-10" />
+        <img src="/assets/home.gif" alt="Logo" class="h-8 mt-1 md:h-10" />
         <img src="/Logo Allo Cola.svg" alt="Logo" class="h-8 md:h-10" />
       </div>
     </div>

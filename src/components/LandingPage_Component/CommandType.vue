@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import ImageCeleste from '../../assets/EauMinerales/pack celeste.png'
-import ImageCoca_Casier from '../../assets/BoissonGazeuses/ImageCoca_Casier.png'
-import ImageBouteille_Gazeuse from '../../assets/BoissonGazeuses/ImageBouteille_Gazeuse.png'
+import ImageCeleste from '/assets/EauMinerales/pack celeste.png'
+import ImageCoca_Casier from '/assets/BoissonGazeuses/ImageCoca_Casier.png'
+import ImageBouteille_Gazeuse from '/assets/BoissonGazeuses/ImageBouteille_Gazeuse.png'
 
 type OrderType = {
   id: number

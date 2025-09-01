@@ -3,13 +3,13 @@ import { ref, onMounted } from 'vue'
 import Default_NavBar from '../DefaultNavBar.vue'
 const slides = [
   {
-    image: new URL('../../assets/LandingPage_FirstImage.jpg', import.meta.url).href,
+    image: new URL('/assets/LandingPage_FirstImage.jpg', import.meta.url).href,
     title: 'Ton casier <br> Coca livré chez <br> toi, sans bouger.',
     button: 'Je commence ma commande',
     buttonLink: '#',
   },
   {
-    image: new URL('../../assets/LandingPage_SecondImage.png', import.meta.url).href,
+    image: new URL('/assets/LandingPage_SecondImage.png', import.meta.url).href,
     title: 'Ton pack d’eau <br> livré chez toi, <br> sans bouger.',
     button: 'Je commence ma commande',
     buttonLink: '#',

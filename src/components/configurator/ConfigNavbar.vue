@@ -6,8 +6,8 @@
     <router-link to="/">
       <div class="text-xl font-extrabold cursor-pointer select-none">
         <div class="flex gap-2 mt-1">
-          <img src="../../assets/config_Home.gif" alt="Logo" class="h-8 md:h-10 bg-noi" />
-          <img src="../../assets/Logo Allo Cola.png" alt="Logo" class="h-8 md:h-10 bg-noi" />
+          <img src="/assets/config_Home.gif" alt="Logo" class="h-8 md:h-10 bg-noi" />
+          <img src="/assets/Logo Allo Cola.png" alt="Logo" class="h-8 md:h-10 bg-noi" />
         </div>
       </div>
     </router-link>
